@@ -3,486 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WB Fantasy Golf 2026 — Week 17 CJ Cup Byron Nelson</title>
+<title>WB Fantasy Golf — Week 21 · U.S. Open</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #0f0f1a; color: #e0e0e0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; }
-  .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-
-  /* Tab Navigation */
-  .tab-nav { display: flex; gap: 4px; margin-bottom: 0; }
-  .tab-btn { padding: 14px 28px; background: #1a1a2e; border: 1px solid #2a2a4a; border-bottom: none; border-radius: 10px 10px 0 0; color: #888; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-  .tab-btn.active { background: #1a1a2e; color: #4ecdc4; border-color: #4ecdc4; border-bottom: 2px solid #1a1a2e; position: relative; z-index: 2; }
-  .tab-btn:hover:not(.active) { color: #bbb; background: #1e1e34; }
-  .tab-content { display: none; background: #1a1a2e; border: 1px solid #2a2a4a; border-radius: 0 10px 10px 10px; padding: 24px; margin-top: -1px; }
-  .tab-content.active { display: block; }
-
-  /* Cards */
-  .card { background: #16213e; border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #1f3460; }
-  .card h2 { color: #4ecdc4; font-size: 18px; margin-bottom: 12px; border-bottom: 1px solid #1f3460; padding-bottom: 8px; }
-  .card h3 { color: #f8b500; font-size: 15px; margin-bottom: 8px; }
-
-  /* Position Banner */
-  .position-banner { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 2px solid #ff6b6b; border-radius: 12px; padding: 24px; text-align: center; margin-bottom: 20px; }
-  .position-banner .rank { font-size: 48px; font-weight: 800; color: #ff6b6b; }
-  .position-banner .earnings { font-size: 22px; color: #f8b500; margin-top: 4px; }
-  .position-banner .gap { font-size: 14px; color: #aaa; margin-top: 6px; }
-  .position-banner .movement { font-size: 16px; color: #ff6b6b; margin-top: 4px; }
-
-  /* Tournament Card */
-  .tourney-header { background: linear-gradient(135deg, #16213e 0%, #1f3460 100%); border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid #4ecdc4; }
-  .tourney-header h1 { color: #f8b500; font-size: 24px; }
-  .tourney-header .details { color: #bbb; font-size: 14px; margin-top: 6px; }
-  .tourney-header .purse { color: #4ecdc4; font-size: 18px; font-weight: 700; margin-top: 6px; }
-
-  /* Tables */
-  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-  th { background: #1f3460; color: #4ecdc4; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; }
-  td { padding: 8px 12px; border-bottom: 1px solid #1f3460; font-size: 13px; }
-  tr:hover { background: #1a2744; }
-  .burned-tag { color: #ff6b6b; font-weight: 700; font-size: 11px; }
-
-  /* Pick Cards */
-  .pick-card { background: linear-gradient(135deg, #0d3b3b 0%, #16213e 100%); border: 1px solid #4ecdc4; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
-  .pick-card.value { border-color: #f8b500; background: linear-gradient(135deg, #3b2d0d 0%, #16213e 100%); }
-  .pick-card.contrarian { border-color: #a855f7; background: linear-gradient(135deg, #2d1654 0%, #16213e 100%); }
-  .pick-card .name { font-size: 18px; font-weight: 700; color: #fff; }
-  .pick-card .odds { color: #4ecdc4; font-weight: 600; font-size: 14px; }
-  .pick-card .rationale { color: #bbb; font-size: 13px; margin-top: 6px; }
-  .pick-card .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 6px; }
-  .pick-card .tag.top { background: #4ecdc4; color: #0f0f1a; }
-  .pick-card .tag.val { background: #f8b500; color: #0f0f1a; }
-  .pick-card .tag.cont { background: #a855f7; color: #fff; }
-  .pick-card .tag.safe { background: #3b82f6; color: #fff; }
-
-  /* Burned Chips */
-  .burned-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-  .burned-chip { background: #2a1a1a; border: 1px solid #ff6b6b; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #ff6b6b; }
-  .burned-chip .week { color: #888; font-size: 10px; }
-
-  /* Accountability */
-  .grade { display: inline-block; padding: 4px 12px; border-radius: 6px; font-weight: 800; font-size: 16px; margin-left: 8px; }
-  .grade-d { background: #ff6b6b; color: #0f0f1a; }
-  .grade-b { background: #3b82f6; color: #fff; }
-  .grade-c { background: #f8b500; color: #0f0f1a; }
-
-  /* Strategy Note */
-  .strategy-note { background: #1a2744; border-left: 4px solid #f8b500; padding: 14px; border-radius: 0 8px 8px 0; margin-top: 8px; font-size: 13px; }
-
-  /* Projection Tab */
-  .tier-board { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; margin-top: 10px; }
-  .tier-card { background: #16213e; border-radius: 8px; padding: 12px; border: 1px solid #1f3460; }
-  .tier-card h4 { color: #4ecdc4; font-size: 13px; margin-bottom: 6px; }
-  .tier-card .player { font-size: 12px; padding: 2px 0; }
-  .tier-card .player.burned { text-decoration: line-through; color: #ff6b6b; }
-  .week-row-highlight { background: #1a2744 !important; }
-  .week-row-major { background: #2d1654 !important; border-left: 3px solid #a855f7; }
-  .week-row-sig { background: #0d3b3b !important; border-left: 3px solid #4ecdc4; }
-
-  /* Course fit bars */
-  .stat-bar-container { margin: 6px 0; }
-  .stat-label { font-size: 13px; color: #888; display: flex; justify-content: space-between; }
-  .stat-bar { height: 6px; background: #1f3460; border-radius: 3px; margin-top: 3px; }
-  .stat-bar-fill { height: 100%; border-radius: 3px; }
-  .stat-high { background: #4ecdc4; }
-  .stat-med { background: #f8b500; }
-  .stat-low { background: #ff6b6b; }
-
-  @media (max-width: 600px) {
-    .container { padding: 10px; }
-    .tab-btn { padding: 10px 16px; font-size: 13px; }
-    .position-banner .rank { font-size: 36px; }
-    .tourney-header h1 { font-size: 20px; }
-    table { font-size: 12px; }
-    th, td { padding: 6px 8px; }
+  :root{
+    --bg:#12121f; --card:#1c1c2e; --card2:#23233a; --line:#2e2e48;
+    --txt:#e8e8f0; --muted:#9a9ab5; --teal:#2dd4bf; --green:#34d399;
+    --gold:#fbbf24; --red:#f87171; --blue:#60a5fa; --purp:#a78bfa;
   }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;padding:0 0 60px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+  header{background:linear-gradient(135deg,#1a1a2e,#2a1a3e);border-bottom:1px solid var(--line);padding:26px 0 20px;margin-bottom:18px}
+  h1{font-size:26px;letter-spacing:-.5px}
+  h1 .sub{color:var(--teal)}
+  .tagline{color:var(--muted);font-size:14px;margin-top:4px}
+  .tabs{display:flex;gap:8px;margin:18px 0 22px}
+  .tab{flex:1;text-align:center;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:10px;cursor:pointer;font-weight:600;font-size:15px;color:var(--muted);transition:.15s}
+  .tab.active{background:var(--teal);color:#0a0a14;border-color:var(--teal)}
+  .panel{display:none}
+  .panel.active{display:block}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:12px}
+  .banner{background:linear-gradient(135deg,#1e3a34,#1c2e3a);border:1px solid var(--teal)}
+  .banner .big{font-size:34px;font-weight:800}
+  .grid{display:grid;gap:12px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:680px){.g3,.g4,.g2{grid-template-columns:1fr 1fr}}
+  .stat{background:var(--card2);border-radius:9px;padding:12px}
+  .stat .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .stat .v{font-size:20px;font-weight:700;margin-top:3px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  tr.me{background:rgba(45,212,191,.12)}
+  tr.me td{font-weight:700}
+  .pick{border-radius:11px;padding:16px;border:1px solid var(--line)}
+  .pick.top{background:linear-gradient(135deg,#1c3a30,#1c2e3a);border-color:var(--green)}
+  .pick.value{background:#1f2540;border-color:var(--blue)}
+  .pick.fit{background:#2a2340;border-color:var(--purp)}
+  .pick.contra{background:#2e2233;border-color:var(--gold)}
+  .pick .tier{font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:4px}
+  .pick .name{font-size:20px;font-weight:800}
+  .pick .odds{float:right;font-size:14px;color:var(--muted);font-weight:600}
+  .pick p{font-size:13px;color:#cfcfe0;margin-top:8px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:4px 10px;font-size:12px;color:var(--muted)}
+  .chip.win{border-color:var(--gold);color:var(--gold)}
+  .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+  .b-green{background:rgba(52,211,153,.18);color:var(--green)}
+  .b-red{background:rgba(248,113,113,.18);color:var(--red)}
+  .b-gold{background:rgba(251,191,36,.18);color:var(--gold)}
+  .b-burn{background:rgba(248,113,113,.14);color:var(--red);text-decoration:line-through}
+  .note{font-size:13px;color:#cfcfe0;margin-bottom:8px}
+  .note b{color:var(--txt)}
+  .accountability{background:#2a2030;border:1px dashed var(--gold)}
+  .accountability .grade{font-size:22px;font-weight:800;color:var(--gold)}
+  .foot{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+  .pri-1{color:var(--green);font-weight:700}
+  .pri-2{color:var(--gold);font-weight:700}
+  .pri-3{color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="container">
+<header>
+  <div class="wrap">
+    <h1>WB Fantasy Golf <span class="sub">· Week 21</span></h1>
+    <div class="tagline">U.S. Open · Shinnecock Hills, Southampton NY · June 18–21, 2026 · $21.5M purse</div>
+  </div>
+</header>
 
-<!-- Tab Navigation -->
-<div class="tab-nav">
-  <button class="tab-btn active" onclick="switchTab('weekly')">Weekly Dashboard</button>
-  <button class="tab-btn" onclick="switchTab('projection')">Season Projection</button>
-</div>
-
-<!-- ===== TAB 1: WEEKLY DASHBOARD ===== -->
-<div id="weekly" class="tab-content active">
-
-  <!-- Position Banner -->
-  <div class="position-banner">
-    <div class="movement">Week 16: Koepka + Fowler at PGA Championship</div>
-    <div class="rank">5th</div>
-    <div class="earnings">$14,639,227</div>
-    <div class="gap">$3.03M behind #1 Maine Lunch Management ($17.66M) | 82 teams</div>
-    <div class="movement" style="margin-top:8px;">Dropped 2 spots. Rough week.</div>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('weekly')">📊 Weekly Dashboard</div>
+    <div class="tab" onclick="showTab('projection')">🗓️ Season Projection</div>
   </div>
 
-  <!-- Model Accountability -->
-  <div class="card">
-    <h2>Model Accountability Report <span class="grade grade-d">D+</span></h2>
-    <p style="color:#bbb; font-size:13px; margin-bottom:10px;">
-      <strong style="color:#ff6b6b;">Week 16:</strong> Koepka + Fowler at the PGA Championship. The projected plan was Rahm + Cameron Young. Instead we went with Koepka (who at least had course history) and Fowler (who... was in the field, technically). The Brothers Freccia won the weekly payout while we dropped from 3rd to 5th. Meanwhile, Maine Lunch deployed Scheffler + Rahm and opened up a $3M lead. Cool.
-    </p>
-    <p style="color:#bbb; font-size:13px;">
-      <strong style="color:#ff6b6b;">Running theme:</strong> The model keeps making solid projections in this file and then watching someone else's picks get submitted. At this point, I'm starting to think the dashboard is just an expensive way to document better decisions we didn't make.
-    </p>
-    <p style="color:#888; font-size:12px; margin-top:8px;">
-      Season grade: B- overall. Week 12 Fitzpatrick win ($3.78M) still carrying the GPA. Week 10 ($0 double-MC) and Week 16 (PGA misfire) bringing it down.
-    </p>
+<!-- ============================================================ -->
+<!-- ===================== TAB 1: WEEKLY ======================== -->
+<!-- ============================================================ -->
+<div id="weekly" class="panel active">
+
+  <div class="card banner">
+    <h2>Stemorbuclin' — Current Position</h2>
+    <div class="grid g4">
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">Rank</div><div class="big">6<span style="font-size:16px;color:var(--muted)">/82</span></div></div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">YTD Earnings</div><div class="big">$15.78M</div></div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">Gap to 1st</div><div class="big" style="color:var(--red)">-$2.97M</div></div>
+      <div><div style="font-size:11px;color:var(--muted);text-transform:uppercase">Gap to 5th</div><div class="big" style="color:var(--gold)">-$190K</div></div>
+    </div>
+    <p class="note" style="margin-top:12px">Tightly bunched 5th–9th: just <b>$561K separates 5th from 9th</b>. One big week vaults us into the top 3; one flat week drops us to 9th. This is a leverage moment — and it's the major we've been saving Rahm for.</p>
   </div>
 
-  <!-- Week 16 Recap -->
+  <div class="card accountability">
+    <h2>🤖 Model Accountability Report</h2>
+    <div class="grid g2">
+      <div>
+        <div class="grade">Wk 17 — CJ Cup: F</div>
+        <p class="note">The model lovingly recommended Keith Mitchell + Davis Thompson, then we rolled with Pendrith + Thompson. Combined haul: <b>$26,971</b>. A rounding error. The AI's flawless streak of finding the right course-fit name and then watching it shoot 74 remains intact.</p>
+      </div>
+      <div>
+        <div class="grade" style="color:var(--green)">Wk 18 — Schwab: B</div>
+        <p class="note">Ben Griffin actually delivered ($524,700). Glover did Glover things ($19,899). Decent. Wk 19 Memorial: Cantlay + Matsuyama = $389K, fine. Wk 20 Canadian: MacIntyre + Clanton = $182K, meh. Four quiet weeks while the field crept past us — hence 5th → 6th.</p>
+      </div>
+    </div>
+  </div>
+
   <div class="card">
-    <h2>Week 16 Recap — PGA Championship</h2>
+    <h2>🏌️ The Tournament — U.S. Open</h2>
+    <div class="grid g4">
+      <div class="stat"><div class="l">Course</div><div class="v" style="font-size:15px">Shinnecock Hills</div></div>
+      <div class="stat"><div class="l">Purse</div><div class="v">$21.5M</div></div>
+      <div class="stat"><div class="l">Winner</div><div class="v">~$4.3M</div></div>
+      <div class="stat"><div class="l">Field</div><div class="v">156</div></div>
+      <div class="stat"><div class="l">Weekly Pool $</div><div class="v">$400 <span style="font-size:11px;color:var(--muted)">(major)</span></div></div>
+      <div class="stat"><div class="l">Defending</div><div class="v" style="font-size:15px">J.J. Spaun</div></div>
+      <div class="stat"><div class="l">Par / Style</div><div class="v" style="font-size:15px">70 · Links-ish</div></div>
+      <div class="stat"><div class="l">Deploy Priority</div><div class="v" style="color:var(--green)">MAX ⭐</div></div>
+    </div>
+    <p class="note" style="margin-top:12px"><b>Course fit:</b> Shinnecock rewards <b>accuracy over distance</b> — positioning off the tee, precise iron play, and wind management trump raw power. 9 of the last 10 U.S. Open winners cleared +0.50 SG off the tee. Think fairways + flighted irons, not bombers. Defending champ Spaun won last year's U.S. Open by 2 over MacIntyre.</p>
+  </div>
+
+  <div class="card">
+    <h2>💰 Betting Favorites — Availability Flagged</h2>
     <table>
-      <tr><th>Your Picks</th><th>Result</th><th>Earnings</th><th>Ownership</th></tr>
-      <tr><td>Brooks Koepka</td><td>TBD</td><td>$63K (est.)</td><td>High</td></tr>
-      <tr><td>Rickie Fowler</td><td>TBD</td><td>Modest</td><td>Moderate</td></tr>
+      <tr><th>Golfer</th><th>Odds</th><th>Status for us</th></tr>
+      <tr><td>Scottie Scheffler</td><td>+550</td><td><span class="badge b-burn">BURNED Wk7</span></td></tr>
+      <tr><td>Rory McIlroy</td><td>+1200</td><td><span class="badge b-burn">BURNED Wk15</span></td></tr>
+      <tr class="me"><td>Jon Rahm (LIV)</td><td>+1300</td><td><span class="badge b-green">AVAILABLE ⭐</span></td></tr>
+      <tr><td>Matt Fitzpatrick</td><td>+2000</td><td><span class="badge b-burn">BURNED Wk12</span></td></tr>
+      <tr><td>Xander Schauffele</td><td>+2000</td><td><span class="badge b-burn">BURNED Wk11</span></td></tr>
+      <tr class="me"><td>Cameron Young</td><td>+2200</td><td><span class="badge b-green">AVAILABLE</span></td></tr>
+      <tr class="me"><td>J.J. Spaun (def. champ)</td><td>~+2800</td><td><span class="badge b-green">AVAILABLE</span></td></tr>
+      <tr class="me"><td>Corey Conners</td><td>~+4000</td><td><span class="badge b-green">AVAILABLE</span></td></tr>
+      <tr class="me"><td>Shane Lowry</td><td>~+5000</td><td><span class="badge b-green">AVAILABLE</span></td></tr>
+      <tr class="me"><td>Tyrrell Hatton (LIV)</td><td>~+5000</td><td><span class="badge b-green">AVAILABLE</span></td></tr>
     </table>
-    <div class="strategy-note">
-      <strong style="color:#ff6b6b;">Post-mortem:</strong> Maine Lunch paired Scheffler + Rahm (both LIV-eligible names we should've deployed). King Tut surged to 2nd with Koepka + Rahm. Killion jumped to 3rd with Fitzpatrick + Schauffele. We're now in a 3-way dogfight for 5th-6th-7th with Spieth Impediment ($14.64M) and RickPlack ($14.63M).
+    <p class="note" style="margin-top:10px">Of the top 5 on the board, four are burned. <b>Rahm (+1300) is the single best available name in the field</b> — and the leverage is the story (see below).</p>
+  </div>
+
+  <div class="card" style="border-color:var(--teal)">
+    <h2>🎯 Pick Recommendations — Deploy Rahm</h2>
+    <div class="grid g2">
+      <div class="pick top">
+        <span class="odds">+1300</span>
+        <div class="tier" style="color:var(--green)">TOP PICK ⭐</div>
+        <div class="name">Jon Rahm</div>
+        <p>The whole season's LIV plan pointed here. Rahm is the 3rd betting favorite and the best name we can still use — and <b>4 of the 5 teams ahead of us (King Tut, Maine Lunch, Baron Trump, Slingin Birdies) have already burned him.</b> Elite ball-striker who thrives on demanding setups. This is real leverage, not just upside.</p>
+      </div>
+      <div class="pick fit">
+        <span class="odds">~+4000</span>
+        <div class="tier" style="color:var(--purp)">COURSE-FIT PAIR</div>
+        <div class="name">Corey Conners</div>
+        <p>The cleanest Shinnecock profile available: top-tier driving accuracy + flushed irons, exactly what this course demands. Solid U.S. Open contention history, likely low pool ownership. The high-floor complement to Rahm's ceiling.</p>
+      </div>
+      <div class="pick value">
+        <span class="odds">+2200</span>
+        <div class="tier" style="color:var(--blue)">UPSIDE ALT</div>
+        <div class="name">Cameron Young</div>
+        <p>Westchester, NY native — grew up near Shinnecock and knows Long Island wind. Top-5 on multiple projected leaderboards, available, and still chasing his first win. If you'd rather pair Rahm with a higher ceiling than Conners' floor, this is it.</p>
+      </div>
+      <div class="pick contra">
+        <span class="odds">~+5000</span>
+        <div class="tier" style="color:var(--gold)">CONTRARIAN</div>
+        <div class="name">Shane Lowry</div>
+        <p>Wind-and-grind merchant who loves a hard U.S. Open. Low ownership, high major floor, available. Deep-value differential if you want to fade the chalk entirely. Aaron Rai / Chris Gotterup are the even-deeper darts.</p>
+      </div>
     </div>
+    <p class="note" style="margin-top:12px"><b>My call:</b> <span class="pri-1">Rahm + Conners</span> for the balanced leverage play (star + course fit), or <span class="pri-2">Rahm + Cameron Young</span> if you want to swing for the top 3 outright. Either way — <b>Rahm goes in this week.</b> Don't carry him to Travelers.</p>
   </div>
 
-  <!-- Tournament Info -->
-  <div class="tourney-header">
-    <h1>Week 17: THE CJ CUP Byron Nelson</h1>
-    <div class="details">TPC Craig Ranch — McKinney, TX | May 21-24 | Par 71, 7,569 yards | 144 players | 500 FedExCup pts</div>
-    <div class="purse">$10.3M Purse | $1,854,000 Winner | $200 Weekly Pool Payout</div>
-    <div class="details" style="margin-top:6px;">Defending Champ: Scottie Scheffler (-31, won by 8)</div>
-  </div>
-
-  <!-- Course Fit -->
   <div class="card">
-    <h2>Course Fit — TPC Craig Ranch</h2>
-    <p style="font-size:13px; color:#bbb; margin-bottom:12px;">
-      Tom Weiskopf design that plays easier than its yardage suggests. Forgiving fairways — this is an <strong style="color:#4ecdc4;">iron + putter course</strong>.
-      Since 2021, every winner has posted -23 or better. Scheffler went -31 last year. SG: Approach and SG: Putting are the two stats that separate contenders from the pack.
-    </p>
-    <div class="stat-bar-container">
-      <div class="stat-label"><span>SG: Approach</span><span style="color:#4ecdc4;">CRITICAL</span></div>
-      <div class="stat-bar"><div class="stat-bar-fill stat-high" style="width:95%"></div></div>
-    </div>
-    <div class="stat-bar-container">
-      <div class="stat-label"><span>SG: Putting</span><span style="color:#4ecdc4;">CRITICAL</span></div>
-      <div class="stat-bar"><div class="stat-bar-fill stat-high" style="width:90%"></div></div>
-    </div>
-    <div class="stat-bar-container">
-      <div class="stat-label"><span>SG: Tee to Green</span><span style="color:#f8b500;">IMPORTANT</span></div>
-      <div class="stat-bar"><div class="stat-bar-fill stat-med" style="width:70%"></div></div>
-    </div>
-    <div class="stat-bar-container">
-      <div class="stat-label"><span>SG: Off the Tee</span><span style="color:#888;">MODERATE</span></div>
-      <div class="stat-bar"><div class="stat-bar-fill stat-low" style="width:45%"></div></div>
-    </div>
-  </div>
-
-  <!-- Betting Odds -->
-  <div class="card">
-    <h2>DraftKings Betting Favorites — Top 15</h2>
-    <p style="color:#ff6b6b; font-size:12px; margin-bottom:8px;">Tyler called it: "scrape the bottom of the barrel this week." The top 5 favorites are ALL burned by us.</p>
+    <h2>🥊 Competitive Edge — Who Still Has Rahm?</h2>
     <table>
-      <tr><th>#</th><th>Golfer</th><th>Odds</th><th>Implied %</th><th>Status</th></tr>
-      <tr><td>1</td><td>Scottie Scheffler</td><td>+134</td><td>42.7%</td><td><span class="burned-tag">BURNED Wk7</span></td></tr>
-      <tr><td>2</td><td>Si Woo Kim</td><td>+1075</td><td>8.5%</td><td><span class="burned-tag">BURNED Wk3</span></td></tr>
-      <tr><td>3</td><td>Jordan Spieth</td><td>+1650</td><td>5.7%</td><td><span class="burned-tag">BURNED Wk8</span></td></tr>
-      <tr><td>4</td><td>Keith Mitchell</td><td>+2500</td><td>3.8%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>5</td><td>Brooks Koepka</td><td>+2700</td><td>3.6%</td><td><span class="burned-tag">BURNED Wk16</span></td></tr>
-      <tr><td>6</td><td>Pierceson Coody</td><td>+3100</td><td>3.1%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>7</td><td>Michael Thorbjornsen</td><td>+3300</td><td>2.9%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>8</td><td>Wyndham Clark</td><td>+3700</td><td>2.6%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>9</td><td>Rasmus Hojgaard</td><td>+3700</td><td>2.6%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>10</td><td>Davis Thompson</td><td>+3900</td><td>2.5%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>11</td><td>Ryo Hisatsune</td><td>+3900</td><td>2.5%</td><td><span class="burned-tag">BURNED Wk8</span></td></tr>
-      <tr><td>12</td><td>Taylor Pendrith</td><td>+4700</td><td>2.1%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>13</td><td>Aaron Rai</td><td>+4700</td><td>2.1%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>14</td><td>Sungjae Im</td><td>+5300</td><td>1.9%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
-      <tr><td>15</td><td>Christiaan Bezuidenhout</td><td>+5700</td><td>1.7%</td><td style="color:#4ecdc4;">AVAILABLE</td></tr>
+      <tr><th>Team</th><th>Rank</th><th>Rahm?</th><th>Scheffler?</th></tr>
+      <tr><td>King Tut</td><td>1</td><td><span class="badge b-red">Burned</span></td><td><span class="badge b-green">Has</span></td></tr>
+      <tr><td>Maine Lunch Mgmt</td><td>2</td><td><span class="badge b-red">Burned</span></td><td><span class="badge b-red">Burned</span></td></tr>
+      <tr><td>Speed Slot Sherlocks</td><td>3</td><td><span class="badge b-green">Has</span></td><td><span class="badge b-red">Burned</span></td></tr>
+      <tr><td>Baron Trump</td><td>4</td><td><span class="badge b-red">Burned</span></td><td><span class="badge b-red">Burned</span></td></tr>
+      <tr><td>Slingin Birdies</td><td>5</td><td><span class="badge b-red">Burned</span></td><td><span class="badge b-green">Has</span></td></tr>
+      <tr class="me"><td>Stemorbuclin'</td><td>6</td><td><span class="badge b-green">HAS ⭐</span></td><td><span class="badge b-red">Burned Wk7</span></td></tr>
+      <tr><td>Friends of Fernando</td><td>7</td><td><span class="badge b-red">Burned</span></td><td><span class="badge b-green">Has</span></td></tr>
+      <tr><td>ziggy</td><td>8</td><td><span class="badge b-green">Has</span></td><td><span class="badge b-red">Burned</span></td></tr>
+      <tr><td>RickPlack</td><td>9</td><td><span class="badge b-red">Burned</span></td><td><span class="badge b-red">Burned</span></td></tr>
     </table>
+    <p class="note" style="margin-top:10px"><b>Risk to watch:</b> King Tut (1st), Slingin Birdies (5th), and Friends of Fernando (7th) still have Scheffler (+550). If Scottie completes the career slam, those three gain on us. Our counter is Rahm, who only Speed Slot (3rd) and ziggy (8th) can match — neither directly above us in a way we can't answer.</p>
   </div>
 
-  <!-- Pick Recommendations -->
   <div class="card">
-    <h2>Pick Recommendations — Week 17</h2>
-    <p style="color:#bbb; font-size:13px; margin-bottom:12px;">
-      All verified against the burned list. $10.3M purse is mid-tier — use Tier 4-5 names, save your remaining stars for Memorial (Wk 19, $20M) and U.S. Open (Wk 21, $21.5M).
-    </p>
-
-    <div class="pick-card">
-      <span class="tag top">TOP PICK</span>
-      <div class="name">Keith Mitchell</div>
-      <div class="odds">+2500 | 3.8% implied | First available favorite</div>
-      <div class="rationale">The highest-ranked available golfer on the board for us. Long hitter who can take advantage of TPC Craig Ranch's par-5s. His iron play has been trending well. At +2500 he's the best expected-earnings play among our available names. A top-10 here returns $300K+.</div>
-    </div>
-
-    <div class="pick-card value">
-      <span class="tag val">VALUE</span>
-      <div class="name">Davis Thompson</div>
-      <div class="odds">+3900 | 2.5% implied | Ball-striker profile</div>
-      <div class="rationale">Excellent SG: Approach numbers — exactly the stat this course rewards. Quietly consistent and unlikely to be heavily owned in the pool. At 39-1, a top-5 returns strong earnings without needing a win. Good Tier 4 deploy at a mid-purse event.</div>
-    </div>
-
-    <div class="pick-card value">
-      <span class="tag val">VALUE</span>
-      <div class="name">Taylor Pendrith</div>
-      <div class="odds">+4700 | 2.1% implied | 2024 winner here</div>
-      <div class="rationale">Won this tournament in 2024 at -23. Proven course form and the length to compete at 7,569 yards. One of the highest-floor plays this week — he knows how to score at Craig Ranch.</div>
-    </div>
-
-    <div class="pick-card">
-      <span class="tag safe">SAFE FLOOR</span>
-      <div class="name">Sungjae Im</div>
-      <div class="odds">+5300 | 1.9% implied | Iron machine</div>
-      <div class="rationale">Elite SG: Approach numbers and almost never misses cuts. Not flashy, but in an earnings-based pool his consistency generates reliable points every week. The kind of pick you don't regret even when he finishes T20.</div>
-    </div>
-
-    <div class="pick-card contrarian">
-      <span class="tag cont">CONTRARIAN</span>
-      <div class="name">Christiaan Bezuidenhout</div>
-      <div class="odds">+5700 | 1.7% implied | Low ownership edge</div>
-      <div class="rationale">Quietly one of the best iron players on tour. Fits the TPC Craig Ranch profile perfectly. Pool ownership will be near-zero since nobody's thinking about him. If the pool is all chasing Scheffler/Spieth/Koepka (which they can't use either), this is where you gain differential.</div>
-    </div>
-
-    <div class="strategy-note">
-      <strong style="color:#f8b500;">Recommended pairing:</strong> Keith Mitchell + Davis Thompson. Mitchell gives you upside as the top available name, Thompson gives you course-fit floor. Neither is a name you'll regret burning at a $10.3M event. Save Wyndham Clark, Rasmus Hojgaard, and Pierceson Coody for better spots.
-    </div>
-  </div>
-
-  <!-- Burned Golfers -->
-  <div class="card">
-    <h2>Burned Golfers (32 through Week 16)</h2>
-    <div class="burned-grid">
-      <span class="burned-chip">Eric Cole <span class="week">Wk1</span></span>
-      <span class="burned-chip">Jason Day <span class="week">Wk1</span></span>
-      <span class="burned-chip">Tommy Fleetwood <span class="week">Wk2</span></span>
-      <span class="burned-chip">Viktor Hovland <span class="week">Wk2</span></span>
-      <span class="burned-chip">Si Woo Kim <span class="week">Wk3</span></span>
-      <span class="burned-chip">Maverick McNealy <span class="week">Wk3</span></span>
-      <span class="burned-chip">Akshay Bhatia <span class="week">Wk4</span></span>
-      <span class="burned-chip">Tony Finau <span class="week">Wk4</span></span>
-      <span class="burned-chip">Nico Echavarria <span class="week">Wk5</span></span>
-      <span class="burned-chip">Garrick Higgo <span class="week">Wk5</span></span>
-      <span class="burned-chip">Collin Morikawa <span class="week">Wk6</span></span>
-      <span class="burned-chip">Justin Rose <span class="week">Wk6</span></span>
-      <span class="burned-chip">Scottie Scheffler <span class="week">Wk7</span></span>
-      <span class="burned-chip">Ludvig Aberg <span class="week">Wk7</span></span>
-      <span class="burned-chip">Jordan Spieth <span class="week">Wk8</span></span>
-      <span class="burned-chip">Ryo Hisatsune <span class="week">Wk8</span></span>
-      <span class="burned-chip">Ryan Gerard <span class="week">Wk9</span></span>
-      <span class="burned-chip">Jake Knapp <span class="week">Wk9</span></span>
-      <span class="burned-chip">Sepp Straka <span class="week">Wk10</span></span>
-      <span class="burned-chip">Russell Henley <span class="week">Wk10</span></span>
-      <span class="burned-chip">Xander Schauffele <span class="week">Wk11</span></span>
-      <span class="burned-chip">Bryson DeChambeau <span class="week">Wk11</span></span>
-      <span class="burned-chip">Matt Fitzpatrick <span class="week">Wk12</span></span>
-      <span class="burned-chip">Brian Harman <span class="week">Wk12</span></span>
-      <span class="burned-chip">Max Greyserman <span class="week">Wk13</span></span>
-      <span class="burned-chip">Alex Fitzpatrick <span class="week">Wk13</span></span>
-      <span class="burned-chip">Min Woo Lee <span class="week">Wk14</span></span>
-      <span class="burned-chip">Gary Woodland <span class="week">Wk14</span></span>
-      <span class="burned-chip">Rory McIlroy <span class="week">Wk15</span></span>
-      <span class="burned-chip">Nicolai Hojgaard <span class="week">Wk15</span></span>
-      <span class="burned-chip">Brooks Koepka <span class="week">Wk16</span></span>
-      <span class="burned-chip">Rickie Fowler <span class="week">Wk16</span></span>
-    </div>
-  </div>
-
-  <!-- Standings -->
-  <div class="card">
-    <h2>Standings — Week 16</h2>
+    <h2>📋 Standings — Top 12 + Us</h2>
     <table>
-      <tr><th>Rank</th><th>Chg</th><th>Team</th><th>YTD Earnings</th><th>Gap to #1</th></tr>
-      <tr style="background:#0d3b3b;"><td>1</td><td>—</td><td>Maine Lunch Management (Steve Brown)</td><td>$17,664,502</td><td>—</td></tr>
-      <tr><td>2</td><td>+3</td><td>King Tut (Sam Coppola)</td><td>$16,338,414</td><td>-$1.33M</td></tr>
-      <tr><td>3</td><td>+4</td><td>Killion (Eric Killion)</td><td>$15,013,959</td><td>-$2.65M</td></tr>
-      <tr><td>4</td><td>+2</td><td>Friends of Fernando (Sam Browne)</td><td>$14,887,940</td><td>-$2.78M</td></tr>
-      <tr style="background:#1a2744; border-left:3px solid #ff6b6b;"><td><strong>5</strong></td><td><strong>-2</strong></td><td><strong>Stemorbuclin' (John Stevenson)</strong></td><td><strong>$14,639,227</strong></td><td><strong>-$3.03M</strong></td></tr>
-      <tr><td>6</td><td>-2</td><td>Spieth Impediment (Tyler Eure)</td><td>$14,636,490</td><td>-$3.03M</td></tr>
-      <tr><td>7</td><td>-5</td><td>RickPlack (Rick Plackter)</td><td>$14,628,645</td><td>-$3.04M</td></tr>
-      <tr><td>8</td><td>+3</td><td>ziggy (Justin Zubricki)</td><td>$13,649,103</td><td>-$4.02M</td></tr>
-      <tr><td>9</td><td>—</td><td>dwiedeman2 (David Wiedeman)</td><td>$13,577,219</td><td>-$4.09M</td></tr>
-      <tr><td>10</td><td>-2</td><td>Baron Trump (Will Forsyth)</td><td>$13,408,561</td><td>-$4.26M</td></tr>
+      <tr><th>#</th><th>Team</th><th>Earnings</th></tr>
+      <tr><td>1</td><td>King Tut</td><td>$18,752,655</td></tr>
+      <tr><td>2</td><td>Maine Lunch Management</td><td>$17,986,998</td></tr>
+      <tr><td>3</td><td>Speed Slot Sherlocks</td><td>$17,362,189</td></tr>
+      <tr><td>4</td><td>Baron Trump</td><td>$16,655,847</td></tr>
+      <tr><td>5</td><td>Slingin Birdies</td><td>$15,971,830</td></tr>
+      <tr class="me"><td>6</td><td>Stemorbuclin'</td><td>$15,782,116</td></tr>
+      <tr><td>7</td><td>Friends of Fernando</td><td>$15,778,885</td></tr>
+      <tr><td>8</td><td>ziggy</td><td>$15,770,490</td></tr>
+      <tr><td>9</td><td>RickPlack</td><td>$15,711,782</td></tr>
+      <tr><td>10</td><td>Killion</td><td>$15,435,600</td></tr>
+      <tr><td>11</td><td>Spieth Impediment</td><td>$15,051,815</td></tr>
+      <tr><td>12</td><td>Shooter McGavin</td><td>$14,827,890</td></tr>
     </table>
-    <p style="color:#888; font-size:12px; margin-top:8px;">82 teams total | 5th-6th-7th separated by just $11K | 15 weeks remaining including 2 majors, 6 signature events</p>
+    <p class="note" style="margin-top:8px">7th, 8th, and 9th are within <b>$71K</b> of us. This is a knife fight — every dollar matters.</p>
   </div>
 
-  <!-- Competitive Analysis -->
   <div class="card">
-    <h2>Competitive Analysis — Week 16 Update</h2>
-    <table>
-      <tr><th>Team</th><th>Rank</th><th>Wk 16 Picks</th><th>Key Intel</th></tr>
-      <tr><td>Maine Lunch Mgmt</td><td>1st</td><td>Scheffler + Rahm</td><td>Deployed BOTH mega-names. Big lead but burning premium assets.</td></tr>
-      <tr><td>King Tut</td><td>2nd</td><td>Koepka + Rahm</td><td>Surged +3 spots. Rahm now burned. Still has Cam Young, JT, Cantlay.</td></tr>
-      <tr><td>Killion</td><td>3rd</td><td>M. Fitzpatrick + Schauffele</td><td>Wait — Fitzpatrick and Schauffele at the PGA? Bold. Jumped +4.</td></tr>
-      <tr><td>Friends of Fernando</td><td>4th</td><td>Fleetwood + JT</td><td>JT now burned. Still has Cantlay, Burns.</td></tr>
-    </table>
-    <div class="strategy-note">
-      <strong style="color:#f8b500;">Takeaway:</strong> Maine Lunch is pulling away but just burned Scheffler + Rahm. Their elite cupboard is thinning. The race for 2nd-7th is a knife fight — $11K separates 5th from 7th. One good week puts us back in the top 3. The Memorial ($20M, Wk 19) is the next inflection point. We still have Cameron Young, JT, Cantlay, Burns, and MacIntyre. That's a deeper bench than most teams near us.
-    </div>
-  </div>
-
-  <!-- Upcoming Schedule -->
-  <div class="card">
-    <h2>Upcoming Schedule</h2>
-    <table>
-      <tr><th>Week</th><th>Tournament</th><th>Purse</th><th>Priority</th></tr>
-      <tr style="background:#1a2744; border-left:3px solid #f8b500;"><td>17</td><td>CJ Cup Byron Nelson &larr; THIS WEEK</td><td>$10.3M</td><td style="color:#888;">Mid-tier (Tier 4-5 picks)</td></tr>
-      <tr><td>18</td><td>Charles Schwab Challenge</td><td>$9.9M</td><td style="color:#888;">Mid-tier</td></tr>
-      <tr class="week-row-sig"><td>19</td><td>The Memorial Tournament</td><td>$20M</td><td style="color:#4ecdc4; font-weight:700;">SIGNATURE</td></tr>
-      <tr><td>20</td><td>RBC Canadian Open</td><td>$9.8M</td><td style="color:#888;">Mid-tier</td></tr>
-      <tr class="week-row-major"><td>21</td><td>U.S. Open</td><td>$21.5M</td><td style="color:#a855f7; font-weight:700;">MAJOR — LIV ELIGIBLE</td></tr>
-      <tr class="week-row-sig"><td>22</td><td>Travelers Championship</td><td>$20M</td><td style="color:#4ecdc4; font-weight:700;">SIGNATURE</td></tr>
-      <tr><td>23</td><td>John Deere Classic</td><td>$8.8M</td><td style="color:#888;">Low-tier</td></tr>
-      <tr class="week-row-major"><td>25</td><td>The Open Championship</td><td>$20M</td><td style="color:#a855f7; font-weight:700;">MAJOR — LIV ELIGIBLE</td></tr>
-    </table>
-    <div class="strategy-note">
-      <strong style="color:#f8b500;">Burn plan:</strong> This week and next (Wk 17-18) are mid-tier. Use expendable Tier 4-5 names. Save Cameron Young, JT, Cantlay, Burns for the $20M+ stretch starting Week 19. Rahm is still available for the U.S. Open (Wk 21). Cameron Smith for The Open (Wk 25).
+    <h2>🔥 Burned Golfers — 40 used (Weeks 1–20)</h2>
+    <div class="chips">
+      <span class="chip">Eric Cole</span><span class="chip">Jason Day</span><span class="chip">Si Woo Kim</span><span class="chip">Maverick McNealy</span><span class="chip">Tommy Fleetwood</span><span class="chip">Viktor Hovland</span><span class="chip">Akshay Bhatia</span><span class="chip">Tony Finau</span><span class="chip">Nico Echavarria</span><span class="chip">Garrick Higgo</span><span class="chip">Collin Morikawa</span><span class="chip">Justin Rose</span><span class="chip">Scottie Scheffler</span><span class="chip">Ludvig Aberg</span><span class="chip">Jordan Spieth</span><span class="chip">Ryo Hisatsune</span><span class="chip">Ryan Gerard</span><span class="chip">Jake Knapp</span><span class="chip">Sepp Straka</span><span class="chip">Russell Henley</span><span class="chip">Xander Schauffele</span><span class="chip">Bryson DeChambeau</span><span class="chip win">Matt Fitzpatrick 🏆</span><span class="chip">Brian Harman</span><span class="chip">Max Greyserman</span><span class="chip win">Alex Fitzpatrick 🏆</span><span class="chip">Min Woo Lee</span><span class="chip">Gary Woodland</span><span class="chip">Rory McIlroy</span><span class="chip">Nicolai Hojgaard</span><span class="chip">Brooks Koepka</span><span class="chip">Rickie Fowler</span><span class="chip">Taylor Pendrith</span><span class="chip">Davis Thompson</span><span class="chip">Ben Griffin</span><span class="chip">Lucas Glover</span><span class="chip">Patrick Cantlay</span><span class="chip">Hideki Matsuyama</span><span class="chip">Robert MacIntyre</span><span class="chip">Luke Clanton</span>
     </div>
   </div>
 
 </div>
 
-<!-- ===== TAB 2: SEASON PROJECTION ===== -->
-<div id="projection" class="tab-content">
+<!-- ============================================================ -->
+<!-- =================== TAB 2: PROJECTION ====================== -->
+<!-- ============================================================ -->
+<div id="projection" class="panel">
 
   <div class="card">
-    <h2>Season Projection — Updated Week 16</h2>
-    <p style="color:#bbb; font-size:13px;">
-      Currently 5th ($14.64M), $3.03M behind #1. 15 weeks remaining (Weeks 17-31). That's 30 pick slots left.
-      We've burned 32 golfers through 16 weeks. Key elite names still available: Rahm (LIV), Cam Young, JT, Cantlay, Burns, MacIntyre, Homa, Scott, Theegala, Cam Smith (LIV/Open only).
-    </p>
-    <p style="color:#ff6b6b; font-size:13px; margin-top:8px;">
-      <strong>Week 16 deviation:</strong> Projection called for Rahm + Cameron Young at the PGA. Actual picks were Koepka + Fowler. This cost us the Rahm deploy window at a $20M major. Rahm is still available but now must wait for the U.S. Open (Wk 21).
-    </p>
+    <h2>🗓️ Season Projection — Weeks 21–31</h2>
+    <p class="note">11 weeks, 22 picks left. We're 6th, $2.97M out of 1st but only $190K out of 5th. The math: we need <b>two more big weeks</b> (a major win or a couple of top-5s from low-owned names) to crack the top 3. Burn discipline is now about deploying our 2 remaining premium windows — <b>U.S. Open (Rahm) and The Open (Hatton/Niemann)</b> — and not wasting good names on $8M filler weeks.</p>
   </div>
 
-  <!-- Available Tier Board -->
   <div class="card">
-    <h2>Available Player Tiers (Post-Week 16)</h2>
-    <div class="tier-board">
-      <div class="tier-card" style="border-color:#a855f7;">
-        <h4>Tier 1 — Elite (LIV)</h4>
-        <div class="player">Jon Rahm</div>
-        <div class="player" style="color:#888;">Cam Smith (Open only)</div>
-        <div class="player" style="color:#888; font-size:11px;">Deploy at majors ONLY</div>
+    <h2>⭐ Available Talent Tiers (post-Week 20)</h2>
+    <div class="grid g3">
+      <div class="stat">
+        <div class="l" style="color:var(--green)">Tier 1 — Stars</div>
+        <div class="note" style="margin-top:6px;font-size:13px">Jon Rahm (LIV·majors), Cameron Young, J.J. Spaun, Justin Thomas, Sungjae Im</div>
       </div>
-      <div class="tier-card" style="border-color:#4ecdc4;">
-        <h4>Tier 2 — Stars</h4>
-        <div class="player">Cameron Young</div>
-        <div class="player">Justin Thomas</div>
-        <div class="player">Patrick Cantlay</div>
-        <div class="player burned">Brooks Koepka (Wk16)</div>
-        <div class="player burned">Rickie Fowler (Wk16)</div>
+      <div class="stat">
+        <div class="l" style="color:var(--blue)">Tier 2 — Solid</div>
+        <div class="note" style="margin-top:6px;font-size:13px">Corey Conners, Shane Lowry, Sam Burns, Sahith Theegala, Keegan Bradley, Tyrrell Hatton (LIV)</div>
       </div>
-      <div class="tier-card" style="border-color:#f8b500;">
-        <h4>Tier 3 — Strong</h4>
-        <div class="player">Sam Burns</div>
-        <div class="player">Robert MacIntyre</div>
-        <div class="player">Max Homa</div>
-        <div class="player">Adam Scott</div>
-        <div class="player">Sahith Theegala</div>
-        <div class="player burned">Rory McIlroy (Wk15)</div>
-      </div>
-      <div class="tier-card" style="border-color:#3b82f6;">
-        <h4>Tier 4 — Solid</h4>
-        <div class="player">Sungjae Im</div>
-        <div class="player">Hideki Matsuyama</div>
-        <div class="player">Corey Conners</div>
-        <div class="player">Keegan Bradley</div>
-        <div class="player">Wyndham Clark</div>
-        <div class="player">Ben Griffin</div>
-        <div class="player">Denny McCarthy</div>
+      <div class="stat">
+        <div class="l" style="color:var(--gold)">Tier 3 — Darts</div>
+        <div class="note" style="margin-top:6px;font-size:13px">Aaron Rai, Chris Gotterup, Joaquin Niemann (LIV·majors), week-to-week value plays</div>
       </div>
     </div>
+    <p class="note" style="margin-top:12px"><b>Remaining LIV windows:</b> The Open Championship (Wk25) is the last major — deploy <b>Tyrrell Hatton or Joaquin Niemann</b> there for the ownership discount. Cam Smith also re-opens at The Open if we want a links specialist.</p>
   </div>
 
-  <!-- Week-by-Week Projection -->
   <div class="card">
-    <h2>Week-by-Week Deployment Plan (Revised)</h2>
-    <p style="color:#888; font-size:12px; margin-bottom:10px;">Updated post-Week 16. Koepka + Fowler now burned. Rahm pushed to US Open.</p>
+    <h2>📆 Week-by-Week Deployment Plan</h2>
     <table>
-      <tr><th>Week</th><th>Tournament</th><th>Purse</th><th>Pick 1 (Tier)</th><th>Pick 2 (Tier)</th></tr>
-      <tr style="background:#1a2744;"><td>16</td><td>PGA Championship</td><td>$20M</td><td style="color:#ff6b6b;">Koepka (ACTUAL)</td><td style="color:#ff6b6b;">Fowler (ACTUAL)</td></tr>
-      <tr style="background:#1a2744; border-left:3px solid #f8b500;"><td>17</td><td>CJ Cup Byron Nelson &larr;</td><td>$10.3M</td><td>Keith Mitchell (T4)</td><td>Davis Thompson (T4)</td></tr>
-      <tr><td>18</td><td>Charles Schwab</td><td>$9.9M</td><td>Corey Conners (T4)</td><td>Keegan Bradley (T4)</td></tr>
-      <tr class="week-row-sig"><td>19</td><td>The Memorial</td><td>$20M</td><td style="color:#4ecdc4;">Cameron Young (T2)</td><td style="color:#f8b500;">Sam Burns (T3)</td></tr>
-      <tr><td>20</td><td>RBC Canadian Open</td><td>$9.8M</td><td>Sungjae Im (T4)</td><td>Hideki Matsuyama (T4)</td></tr>
-      <tr class="week-row-major"><td>21</td><td>U.S. Open</td><td>$21.5M</td><td style="color:#a855f7;">Jon Rahm (T1-LIV)</td><td style="color:#4ecdc4;">Justin Thomas (T2)</td></tr>
-      <tr class="week-row-sig"><td>22</td><td>Travelers</td><td>$20M</td><td style="color:#4ecdc4;">Patrick Cantlay (T2)</td><td style="color:#f8b500;">Robert MacIntyre (T3)</td></tr>
-      <tr><td>23</td><td>John Deere Classic</td><td>$8.8M</td><td>Ben Griffin (T4)</td><td>Denny McCarthy (T4)</td></tr>
-      <tr><td>24</td><td>Genesis Scottish Open</td><td>$9M</td><td>T4-5 pick</td><td>T4-5 pick</td></tr>
-      <tr class="week-row-major"><td>25</td><td>The Open</td><td>$20M</td><td style="color:#a855f7;">Cameron Smith (T1-LIV)</td><td style="color:#f8b500;">Adam Scott (T3)</td></tr>
-      <tr><td>26</td><td>3M Open</td><td>$8.8M</td><td>T4-5 pick</td><td>T4-5 pick</td></tr>
-      <tr><td>27</td><td>Rocket Mortgage</td><td>$10M</td><td>T4-5 pick</td><td>T4-5 pick</td></tr>
-      <tr><td>28</td><td>Wyndham Championship</td><td>$8.5M</td><td>Wyndham Clark (T4)</td><td>T5 pick</td></tr>
-      <tr class="week-row-sig"><td>29</td><td>FedEx St. Jude</td><td>$20M</td><td style="color:#f8b500;">Max Homa (T3)</td><td style="color:#f8b500;">Sahith Theegala (T3)</td></tr>
-      <tr class="week-row-sig"><td>30</td><td>BMW Championship</td><td>$20M</td><td>Best available T3</td><td>Best available T3-4</td></tr>
-      <tr class="week-row-sig"><td>31</td><td>Tour Championship</td><td>$20M</td><td>Best available</td><td>Best available</td></tr>
+      <tr><th>Wk</th><th>Tournament</th><th>Purse</th><th>Priority</th><th>Planned Deploy</th></tr>
+      <tr class="me"><td>21</td><td>U.S. Open (Shinnecock)</td><td>$21.5M</td><td class="pri-1">MAX ⭐</td><td>Rahm + Conners / Cam Young</td></tr>
+      <tr><td>22</td><td>Travelers (signature)</td><td>$20M</td><td class="pri-1">HIGH</td><td>J.T. or Sungjae Im + Spaun</td></tr>
+      <tr><td>23</td><td>John Deere Classic</td><td>$8.8M</td><td class="pri-3">LOW</td><td>Mid-tier value pair</td></tr>
+      <tr><td>24</td><td>Genesis Scottish Open</td><td>$9M</td><td class="pri-2">MED</td><td>Links tune-up — Lowry/Rai type</td></tr>
+      <tr><td>25</td><td>The Open Championship</td><td>$20M</td><td class="pri-1">MAX ⭐</td><td>Hatton/Niemann (LIV) + star</td></tr>
+      <tr><td>26</td><td>3M Open</td><td>$8.8M</td><td class="pri-3">LOW</td><td>Punt — save names</td></tr>
+      <tr><td>27</td><td>Rocket Mortgage</td><td>$10M</td><td class="pri-3">LOW</td><td>Value differentials</td></tr>
+      <tr><td>28</td><td>Wyndham</td><td>$8.5M</td><td class="pri-3">LOW</td><td>Last small week before playoffs</td></tr>
+      <tr><td>29</td><td>FedEx St. Jude (Playoff)</td><td>$20M</td><td class="pri-1">HIGH</td><td>Best remaining names</td></tr>
+      <tr><td>30</td><td>BMW Championship (Playoff)</td><td>$20M</td><td class="pri-1">HIGH</td><td>Top-70 field — deploy stars</td></tr>
+      <tr><td>31</td><td>Tour Championship (Playoff)</td><td>$20M</td><td class="pri-2">MED</td><td>Top-30 only — match field</td></tr>
     </table>
   </div>
 
-  <!-- Earnings Projection -->
   <div class="card">
-    <h2>Earnings Projection (Revised)</h2>
-    <table>
-      <tr><th>Scenario</th><th>Remaining Earnings</th><th>Season Total</th><th>Projected Finish</th></tr>
-      <tr><td style="color:#4ecdc4;">Bull Case</td><td>$10-12M</td><td>$25-27M</td><td>1st-3rd ($6K-$1.5K payout)</td></tr>
-      <tr><td style="color:#f8b500;">Base Case</td><td>$6-8M</td><td>$21-23M</td><td>4th-7th ($500-$200)</td></tr>
-      <tr><td style="color:#ff6b6b;">Bear Case</td><td>$3-5M</td><td>$18-20M</td><td>8th-12th (break even)</td></tr>
-    </table>
-    <div class="strategy-note">
-      <strong style="color:#f8b500;">Reality check:</strong> $3M gap to #1 is significant but not insurmountable. One Rahm or Cam Young win at a $20M+ event ($3.6M winner's share) closes it in a week — IF Maine Lunch doesn't also hit. The key stretch is Weeks 19-22: Memorial, US Open, Travelers. Three $20M+ events in four weeks. This is where the season gets decided. Our Tier 2/3 bench is still deep enough to compete.
+    <h2>📈 Earnings Outlook</h2>
+    <div class="grid g3">
+      <div class="stat"><div class="l">Current YTD</div><div class="v">$15.78M</div></div>
+      <div class="stat"><div class="l">Proj. remaining (avg)</div><div class="v">~$5–7M</div></div>
+      <div class="stat"><div class="l">Proj. season total</div><div class="v" style="color:var(--teal)">~$21–23M</div></div>
     </div>
+    <p class="note" style="margin-top:12px"><b>Path to the podium:</b> The leaders (King Tut $18.75M, Maine Lunch $17.99M) have spent most of their elite firepower — Maine Lunch has burned BOTH Scheffler and Rahm; King Tut has burned Rahm. Our remaining star inventory (Rahm now, Hatton/Niemann at The Open, plus J.T./Im for signature events) is comparable to or better than the teams in 5th–9th. Two top-10s from Rahm-caliber names at majors closes most of the gap. Realistic target: <b>top 3 finish.</b></p>
   </div>
 
-  <!-- LIV Deployment Tracker -->
   <div class="card">
-    <h2>LIV Major Deployment Tracker</h2>
-    <table>
-      <tr><th>Major</th><th>Week</th><th>Purse</th><th>LIV Pick</th><th>Status</th></tr>
-      <tr><td>The Masters</td><td>11</td><td>$21M</td><td>Schauffele + DeChambeau</td><td style="color:#ff6b6b;">Double-LIV mistake. DeChambeau MC.</td></tr>
-      <tr><td>PGA Championship</td><td>16</td><td>$20M</td><td>Koepka + Fowler</td><td style="color:#ff6b6b;">Deviated from plan (was Rahm + Cam Young)</td></tr>
-      <tr><td>U.S. Open</td><td>21</td><td>$21.5M</td><td>Jon Rahm (projected)</td><td style="color:#4ecdc4;">Rahm available — MUST deploy here</td></tr>
-      <tr><td>The Open</td><td>25</td><td>$20M</td><td>Cameron Smith (projected)</td><td style="color:#4ecdc4;">Smith available</td></tr>
-    </table>
-  </div>
-
-  <!-- Season Summary Stats -->
-  <div class="card">
-    <h2>Season Summary</h2>
-    <table>
-      <tr><th>Metric</th><th>Value</th></tr>
-      <tr><td>Current Rank</td><td style="color:#ff6b6b; font-weight:700;">5th of 82</td></tr>
-      <tr><td>YTD Earnings</td><td>$14,639,227</td></tr>
-      <tr><td>Weeks Played</td><td>16 of 31</td></tr>
-      <tr><td>Golfers Burned</td><td>32 (of ~62 total slots)</td></tr>
-      <tr><td>Pick Slots Remaining</td><td>30 (15 weeks x 2)</td></tr>
-      <tr><td>Avg Earnings / Week</td><td>$914,952</td></tr>
-      <tr><td>Best Week</td><td>Week 12: $3,780,000 (Fitzpatrick WIN)</td></tr>
-      <tr><td>Worst Week</td><td>Week 10: $0 (Straka + Henley double MC)</td></tr>
-      <tr><td>Weeks with MC (both)</td><td>1 (Week 10)</td></tr>
-      <tr><td>Survivor Status</td><td>Eliminated Week 6</td></tr>
-    </table>
+    <h2>🧠 Strategy Notes</h2>
+    <p class="note">• <b>This is the week.</b> Rahm has been the plan since the LIV-windows analysis in the spring. Most of the field above us can't match him. Deploy.</p>
+    <p class="note">• <b>Stop drafting for floor.</b> The Wk17 Pendrith/Thompson "course-fit floor" play netted $27K. At 6th in a tight pack, we need ceiling — low-owned names with top-5 upside.</p>
+    <p class="note">• <b>Save one LIV name for The Open (Wk25).</b> Hatton or Niemann gives us the same ownership discount Rahm gives us this week.</p>
+    <p class="note">• <b>Don't waste J.T. / Sungjae Im on John Deere or 3M.</b> Signature events and playoffs are where Tier-1 names pay off.</p>
+    <p class="note">• <b>Survivor:</b> long gone (eliminated Wk6). Pure earnings race now — swing for upside every premium week.</p>
   </div>
 
 </div>
 
+  <div class="foot">
+    WB Fantasy Golf 2026 · Team Stemorbuclin' · Dashboard generated June 16, 2026 ·
+    Data from Tyler Eure's Week 20 spreadsheet + live U.S. Open odds.<br>
+    Hosted at jlsteve25.github.io/golf-dashboard · The AI model: flawlessly identifying the right golfer and then suggesting someone else since 2026.
+  </div>
 </div>
 
 <script>
-function switchTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo(0,0);
 }
 </script>
-
-<footer style="text-align:center; color:#555; font-size:11px; padding:20px 0;">
-  WB Fantasy Golf 2026 — Stemorbuclin' Dashboard — Updated May 18, 2026<br>
-  Built by Claude AI * Not financial advice (obviously)
-</footer>
 </body>
 </html>
